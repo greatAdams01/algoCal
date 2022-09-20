@@ -4,7 +4,7 @@ import { SearchIcon } from "@heroicons/react/outline";
 
 function Header() {
   return (
-    <header>
+    <header className='hidden lg:block'>
       <nav className='w-full'>
         <div className='flex justify-between'>
           {/* Logo and search bar */}
