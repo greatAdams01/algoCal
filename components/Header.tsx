@@ -24,7 +24,7 @@ function Header() {
                 </Link>
               </li>
               <li>
-                <Link href="/">
+                <Link href="/event/create">
                   <a>Create An Event</a>
                 </Link>
               </li>
