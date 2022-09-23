@@ -25,6 +25,9 @@
   .mobLink {
     @apply text-xl py-3
   }
+  .event-nav {
+    @apply cursor-pointer hover:border-b-2 hover:border-[#4059AD] py-2;
+  }
 }
 
 .img-rounded {

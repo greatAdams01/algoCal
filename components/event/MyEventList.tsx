@@ -1,73 +1,57 @@
 import { useState } from 'react'
 import { ShareIcon, BookmarkIcon } from "@heroicons/react/outline"
 
-const EventList = () => {
+const MyEventList = () => {
   const [isAll, setIsAll] = useState(true)
-  const [isForYou, setIsForYou] = useState(false)
-  const [isFree, setIsFree] = useState(false)
-  const [isToday, setIsToday] = useState(false)
-  const [isWeekend, setIsWeekend] = useState(false)
+  const [isRecently, setIsRecently] = useState(false)
+  const [isFavorites, setIsFavorites] = useState(false)
+  const [isUpcoming, setIsUpcoming] = useState(false)
   const [isMonth, setIsMonth] = useState(false)
 
   const switchEvents = (e: any) => {
     // console.log(e?.id)
     if(e?.id === "all") {
       setIsAll(true)
-      setIsForYou(false)
-      setIsFree(false)
+      setIsRecently(false)
+      setIsFavorites(false)
       setIsMonth(false)
-      setIsToday(false)
-      setIsWeekend(false)
+      setIsUpcoming(false)
       return
     }
 
-    if(e?.id === "for-you") {
+    if(e?.id === "recently") {
       setIsAll(false)
-      setIsForYou(true)
-      setIsFree(false)
+      setIsRecently(true)
+      setIsFavorites(false)
       setIsMonth(false)
-      setIsToday(false)
-      setIsWeekend(false)
+      setIsUpcoming(false)
       return
     }
 
-    if(e?.id === "free") {
+    if(e?.id === "Favorites") {
       setIsAll(false)
-      setIsForYou(false)
-      setIsFree(true)
+      setIsRecently(false)
+      setIsFavorites(true)
       setIsMonth(false)
-      setIsToday(false)
-      setIsWeekend(false)
+      setIsUpcoming(false)
       return
     }
 
-    if(e?.id === "today") {
+    if(e?.id === "Upcoming") {
       setIsAll(false)
-      setIsForYou(false)
-      setIsFree(false)
+      setIsRecently(false)
+      setIsFavorites(false)
       setIsMonth(false)
-      setIsToday(true)
-      setIsWeekend(false)
-      return
-    }
-
-    if(e?.id === "weekend") {
-      setIsAll(false)
-      setIsForYou(false)
-      setIsFree(false)
-      setIsMonth(false)
-      setIsToday(false)
-      setIsWeekend(true)
+      setIsUpcoming(true)
       return
     }
 
     if(e?.id === "month") {
       setIsAll(false)
-      setIsForYou(false)
-      setIsFree(false)
+      setIsRecently(false)
+      setIsFavorites(false)
       setIsMonth(true)
-      setIsToday(false)
-      setIsWeekend(false)
+      setIsUpcoming(false)
       return
     }
 
@@ -77,7 +61,7 @@ const EventList = () => {
     <>
       <section className='container text-[#4059AD]'>
         <div>
-          <h1 className='text-5xl font-[300] pb-10 lg:pb-0'>Popular</h1>
+          <h1 className='text-5xl font-[300] pb-10 lg:pb-0'>My Events</h1>
         </div>
         {/* Tabs */}
 
@@ -91,32 +75,25 @@ const EventList = () => {
               All
             </li>
             <li 
-              id='for-you'
-              className={!isForYou ? 'event-nav' : 'event-nav border-b-2 border-[#4059AD] font-semibold'}
+              id='recently'
+              className={!isRecently ? 'event-nav' : 'event-nav border-b-2 border-[#4059AD] font-semibold'}
               onClick={(e) => switchEvents(e.target)}
             >
-              For You
+              Recently Added
             </li>
             <li 
-              id='free'
-              className={!isFree ? 'event-nav' : 'event-nav border-b-2 border-[#4059AD] font-semibold'}
+              id='Favorites'
+              className={!isFavorites ? 'event-nav' : 'event-nav border-b-2 border-[#4059AD] font-semibold'}
               onClick={(e) => switchEvents(e.target)}
             >
-              Free
+              Favorites
             </li>
             <li 
-              id='today'
-              className={!isToday ? 'event-nav' : 'event-nav border-b-2 border-[#4059AD] font-semibold'}
+              id='Upcoming'
+              className={!isUpcoming ? 'event-nav' : 'event-nav border-b-2 border-[#4059AD] font-semibold'}
               onClick={(e) => switchEvents(e.target)}
             >
-              Today
-            </li>
-            <li 
-              id='weekend'
-              className={!isWeekend ? 'event-nav' : 'event-nav border-b-2 border-[#4059AD] font-semibold'}
-              onClick={(e) => switchEvents(e.target)}
-            >
-              This Weekend
+              Upcoming
             </li>
             <li 
               id='month'
@@ -167,4 +144,4 @@ const EventList = () => {
   )
 }
 
-export default EventList
+export default MyEventList
