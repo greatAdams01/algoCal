@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useQuery, gql } from '@apollo/client'; 
 import { ShareIcon, BookmarkIcon } from "@heroicons/react/outline"
 
 const EventList = () => {
@@ -9,8 +10,31 @@ const EventList = () => {
   const [isWeekend, setIsWeekend] = useState(false)
   const [isMonth, setIsMonth] = useState(false)
 
+  const GET_EVENTS = gql` 
+    query GetEvent{
+        events {
+          _id
+          title
+          date
+          time
+          description
+          subDescription
+          host
+          followers
+          reactions
+          venue
+          category
+          type
+          link
+          createdAt
+          updatedAt
+        }
+      }
+  `
+const { loading, error, data } = useQuery(GET_EVENTS);
+
   const switchEvents = (e: any) => {
-    // console.log(e?.id)
+    console.log(data)
     if(e?.id === "all") {
       setIsAll(true)
       setIsForYou(false)

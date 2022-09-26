@@ -1,8 +1,11 @@
 import React from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { SearchIcon } from "@heroicons/react/outline";
 
 function Header() {
+  const router = useRouter()
+
   return (
     <header className='hidden lg:block'>
       <nav className='w-full'>
@@ -42,7 +45,7 @@ function Header() {
           </div>
           {/* Auth btn */}
           <div className='space-x-4'>
-            <button className='authBtn text-white bg-[#4059AD]'>Sign Up</button><button className='authBtn text-[#4059AD]'>Login</button>
+            <button className='authBtn text-white bg-[#4059AD]'>Sign Up</button><button onClick={() => router.push('/auth')} className='authBtn text-[#4059AD]'>Login</button>
           </div>
         </div>
       </nav>
