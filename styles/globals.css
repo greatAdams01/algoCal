@@ -28,6 +28,9 @@
   .event-nav {
     @apply cursor-pointer hover:border-b-2 hover:border-[#4059AD] py-2;
   }
+  .auth-input{
+    @apply bg-white py-3 px-10 text-[#4059AD] outline-none rounded-lg mt-5;
+  }
 }
 
 .img-rounded {

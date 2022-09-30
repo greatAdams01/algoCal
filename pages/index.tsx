@@ -1,8 +1,10 @@
+import type { ReactElement } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import EventList from '../components/event/EventList'
+import BaseLayout from '../layout/BaseLayout'
 
-const Home: NextPage = () => {
+const Home = () => {
   return (
     <div>
       <Head>
@@ -34,6 +36,14 @@ const Home: NextPage = () => {
     <EventList />
       
     </div>
+  )
+}
+
+Home.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <BaseLayout>
+      {page}
+    </BaseLayout>
   )
 }
 
