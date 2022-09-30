@@ -8,12 +8,12 @@ function Login() {
   const router = useRouter();
 
   return (
-    <div className='px-5 py-20 text-[#4059AD] w-1/2 m-auto '>
+    <div className='px-5 py-20 text-[#4059AD] lg:w-1/2 m-auto '>
       <div className='text-center'>
         <h3 className=' text-3xl font-semibold'>Welcome Back</h3>
         <h5 className='text-sm'>Login to your account</h5>
       </div>
-      <div className='w-[455px] m-auto'>
+      <div className='lg:w-[455px] m-auto'>
         <form className='px-4'>
             <input className='auth-input' type="email" placeholder='Email Address' />
             <div className='flex' >
@@ -41,7 +41,7 @@ function Login() {
 
         </form>
         <div className='pt-6 text-center flex- relative bottom-5'>
-          <img src="/img/Google.png" className='relative left-[97px] top-[39px]' alt="" />
+          <img src="/img/Google.png" className='relative left-[60px] lg:left-[97px] top-[39px]' alt="" />
           <button className=' border-[#4059AD] border text-[#4059AD]  w-[300px] py-2 rounded-xl'>Continue with Google</button>
         </div>
 
