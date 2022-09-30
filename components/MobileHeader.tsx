@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { SearchIcon, MenuAlt1Icon, XIcon } from "@heroicons/react/outline";
+import { useRouter } from 'next/router';
 
 
 function MobileHeader() {
   const [open, setOpen] = useState(false)
+  const router = useRouter()
   return (
     <>
       <header className='lg:hidden'>
@@ -26,29 +28,33 @@ function MobileHeader() {
       </header>
       {!open ? <div></div>
         :
-        <div className='fixed h-[100vh] z-10 bg-white w-full p-10 transition-all'>
+        <div className='fixed h-[100vh] z-10 bg-white w-full px-10 py-2 transition-all'>
         <ul className='pt-3 text-[#4059AD] font-Pop text-[16px]'>
-          <li className='mobLink'>
+          <li onClick={() => setOpen(false)} className='mobLink'>
             <Link href="/">
               <a>Organize</a>
             </Link>
           </li>
-          <li className='mobLink'>
+          <li onClick={() => setOpen(false)} className='mobLink'>
             <Link href="/event/create">
               <a>Create An Event</a>
             </Link>
           </li>
-          <li className='mobLink'>
+          <li onClick={() => setOpen(false)} className='mobLink'>
             <Link href="/">
               <a>Announcement</a>
             </Link>
           </li>
-          <li className='mobLink'>
+          <li onClick={() => setOpen(false)} className='mobLink'>
             <Link href="/">
               <a>Help</a>
             </Link>
           </li>
         </ul>
+        <div onClick={() => setOpen(false)} className='space-x-4 pt-4'>
+            <button onClick={() => router.push('/auth?mode=signup')} className='authBtn text-white bg-[#4059AD]'>Sign Up</button>
+            <button onClick={() => router.push('/auth?mode=login')} className='authBtn text-[#4059AD]'>Login</button>
+          </div>
       </div>
       }
     </>

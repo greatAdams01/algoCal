@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import { PlusIcon, ShareIcon, BookmarkIcon } from "@heroicons/react/outline"
 import MyEventList from '../../components/event/MyEventList'
+import BaseLayout from '../../layout/BaseLayout'
+import { ReactElement } from 'react'
 
 function createEvent() {
   return (
@@ -20,6 +22,14 @@ function createEvent() {
 
       <MyEventList />
     </div>
+  )
+}
+
+createEvent.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <BaseLayout>
+      {page}
+    </BaseLayout>
   )
 }
 
