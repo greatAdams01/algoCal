@@ -5,7 +5,17 @@ export const LOGIN_USER = gql`
   login(email: $email, password: $password) {
     creatorId
     token
-    
+  }
+}
+`
+
+export const SIGNUP_USER = gql`
+  mutation Creator($inputs: CreatorInput!){
+    signup(Inputs: $inputs) {
+    about
+    email
+    name
+    website
   }
 }
 `
