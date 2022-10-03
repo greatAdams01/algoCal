@@ -5,7 +5,7 @@ type DashboardLayoutProps = {
 const AuthLayout = ({ children }: DashboardLayoutProps) => {
   return (
     <>
-      <main className="bg-[#D9D9D9] h-[100vh]" >
+      <main className="bg-[#f5f5f5] h-[100vh]" >
         { children }
       </main>
     </>
