@@ -62,11 +62,11 @@ function Login() {
           if (!remeberValue) {
             console.log(login)
             cookie.set(TOKEN_NAME, login?.token, { expires: 1, sameSite: 'None', secure: true })
-            router.push('/event/create')
+            router.push('/event/user')
             return
           }
           cookie.set(TOKEN_NAME, login?.token, { expires: 40, sameSite: 'None', secure: true })
-          router.push('/event/create')
+          router.push('/event/user')
         },
         onError(error) {
           console.log(error.message)

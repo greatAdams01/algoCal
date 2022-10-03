@@ -10,12 +10,9 @@ export const LOGIN_USER = gql`
 `
 
 export const SIGNUP_USER = gql`
-  mutation Creator($inputs: CreatorInput!){
-    signup(Inputs: $inputs) {
-    about
-    email
-    name
-    website
+  mutation($name: String!, $password: String!, $email: String!) {
+  signup(name: $name, password: $password, email: $email) {
+    _id
   }
 }
 `

@@ -55,12 +55,13 @@ function SignUp() {
     try {
       const CreatorInput = { name: inputs.name, email: inputs.email, password: inputs.password }
       signupUser({
-        variables: { inputs: { name: inputs.name, email: inputs.email, password: inputs.password } },
+        variables: { name: inputs.name, email: inputs.email, password: inputs.password },
         onCompleted: (data) => {
           console.log(data)
           toast.success('sign up successful', {
             id: toastId,
           })
+          router.push('/auth?mode=login')
         },
         onError: (error) => {
           console.log(error.message)
