@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { SearchIcon, MenuAlt1Icon, XIcon } from "@heroicons/react/outline";
 import { useRouter } from 'next/router';
+import IsLogged from './auth/IsLogged'
 
 
 function MobileHeader() {
@@ -52,8 +53,7 @@ function MobileHeader() {
           </li>
         </ul>
         <div onClick={() => setOpen(false)} className='space-x-4 pt-4'>
-            <button onClick={() => router.push('/auth?mode=signup')} className='authBtn text-white bg-[#4059AD]'>Sign Up</button>
-            <button onClick={() => router.push('/auth?mode=login')} className='authBtn text-[#4059AD]'>Login</button>
+            <IsLogged />
           </div>
       </div>
       }

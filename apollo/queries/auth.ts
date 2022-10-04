@@ -16,3 +16,15 @@ export const SIGNUP_USER = gql`
   }
 }
 `
+
+export const USER = gql`
+    query Creator{
+      creator {
+        _id
+        about
+        email
+        name
+        website
+      }
+    }
+`

@@ -2,9 +2,11 @@ import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { SearchIcon } from "@heroicons/react/outline";
+import IsLogged from './auth/IsLogged';
 
 function Header() {
   const router = useRouter()
+  
 
   return (
     <header className='hidden lg:block'>
@@ -45,8 +47,7 @@ function Header() {
           </div>
           {/* Auth btn */}
           <div className='space-x-4'>
-            <button onClick={() => router.push('/auth?mode=signup')} className='authBtn text-white bg-[#4059AD]'>Sign Up</button>
-            <button onClick={() => router.push('/auth?mode=login')} className='authBtn text-[#4059AD]'>Login</button>
+            <IsLogged />
           </div>
         </div>
       </nav>

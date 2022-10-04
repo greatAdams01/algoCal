@@ -11,25 +11,22 @@ const EventList = () => {
   const [isMonth, setIsMonth] = useState(false)
 
   const GET_EVENTS = gql` 
-    query GetEvent{
-        events {
-          _id
-          title
-          date
-          time
-          description
-          subDescription
-          host
-          followers
-          reactions
-          venue
-          category
-          type
-          link
-          createdAt
-          updatedAt
-        }
+    query {
+      events {
+        description
+        date
+        category
+        followers
+        link
+        host
+        organizer
+        reactions
+        time
+        title
+        updatedAt
+        venue
       }
+}
   `
 const { loading, error, data } = useQuery(GET_EVENTS);
 

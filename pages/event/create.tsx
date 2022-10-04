@@ -3,8 +3,13 @@ import { PlusIcon, ShareIcon, BookmarkIcon } from "@heroicons/react/outline"
 import MyEventList from '../../components/event/MyEventList'
 import BaseLayout from '../../layout/BaseLayout'
 import { ReactElement } from 'react'
+import { useQuery } from '@apollo/client'
+import { USER } from '../../apollo/queries/auth'
 
 function createEvent() {
+
+  // const { data, error } = useQuery(USER)
+
   return (
     <div>
       <Head>

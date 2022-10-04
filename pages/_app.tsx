@@ -5,6 +5,10 @@ import type { AppProps } from 'next/app'
 import type { NextPage } from 'next'
 import toast, { Toaster } from 'react-hot-toast';
 import cookie from 'js-cookie'
+import React from 'react';
+import {
+  RecoilRoot,
+} from 'recoil';
 import { TOKEN_NAME } from '../util/constants';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -31,7 +35,9 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   
   return getLayout(<>
   <ApolloProvider client={client}>
+    <RecoilRoot>
       <Component {...pageProps} />
+    </RecoilRoot>
       <Toaster />
   </ApolloProvider>
   </>)
