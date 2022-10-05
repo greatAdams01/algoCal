@@ -35,11 +35,6 @@ function Header() {
               </li>
               <li>
                 <Link href="/">
-                  <a>Announcement</a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/">
                   <a>Help</a>
                 </Link>
               </li>

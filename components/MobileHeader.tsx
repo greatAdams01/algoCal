@@ -43,11 +43,6 @@ function MobileHeader() {
           </li>
           <li onClick={() => setOpen(false)} className='mobLink'>
             <Link href="/">
-              <a>Announcement</a>
-            </Link>
-          </li>
-          <li onClick={() => setOpen(false)} className='mobLink'>
-            <Link href="/">
               <a>Help</a>
             </Link>
           </li>

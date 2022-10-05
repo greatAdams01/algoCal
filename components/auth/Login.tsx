@@ -66,7 +66,7 @@ function Login() {
             return
           }
           cookie.set(TOKEN_NAME, login?.token, { expires: 40, sameSite: 'None', secure: true })
-          router.push('/event/user')
+          router.push('/event')
         },
         onError(error) {
           console.log(error.message)

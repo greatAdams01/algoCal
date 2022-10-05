@@ -3,9 +3,8 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import type { NextPage } from 'next'
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import cookie from 'js-cookie'
-import React from 'react';
 import {
   RecoilRoot,
 } from 'recoil';
@@ -33,14 +32,14 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   
   });
   
-  return getLayout(<>
-  <ApolloProvider client={client}>
-    <RecoilRoot>
+  return (
+  <RecoilRoot>
+     <ApolloProvider client={client}>
       <Component {...pageProps} />
-    </RecoilRoot>
       <Toaster />
-  </ApolloProvider>
-  </>)
+      </ApolloProvider>
+  </RecoilRoot>
+  )
 }
 
 export default MyApp

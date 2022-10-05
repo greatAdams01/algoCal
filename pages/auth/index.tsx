@@ -17,6 +17,7 @@ const AuthPage = () => {
   const router = useRouter();
   const mode = router.query?.mode || "login";
   return (
+    <AuthLayout>
     <>
     <Head>
       <title>AlgoCal awaits</title>
@@ -27,12 +28,6 @@ const AuthPage = () => {
 
       {/* <button onClick={() => router.push('/auth?mode=signup')}>Change mode</button> */}
     </>
-  )
-}
-AuthPage.getLayout = function getLayout(page: ReactElement) {
-  return (
-    <AuthLayout>
-      {page}
     </AuthLayout>
   )
 }
