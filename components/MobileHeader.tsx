@@ -47,7 +47,7 @@ function MobileHeader() {
             </Link>
           </li>
         </ul>
-        <div onClick={() => setOpen(false)} className='space-x-4 pt-4'>
+        <div className='space-x-4 pt-4'>
             <IsLogged />
           </div>
       </div>
