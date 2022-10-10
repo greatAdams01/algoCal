@@ -9,6 +9,20 @@ export interface ICreateEvent {
   category: string;
   link: string;
 }
+export interface IEvent {
+  description: string;
+  date: string;
+  category: string;
+  followers: string;
+  link: string;
+  organizer: string;
+  reactions: string;
+  time: string;
+  title: string;
+  updatedAt: string;
+  venue: string;
+  image: string;
+}
 
 export interface UserCreator {
 	_id: string,

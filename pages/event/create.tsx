@@ -1,16 +1,20 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router'
 import Head from 'next/head'
 import BaseLayout from '../../layout/BaseLayout'
 import { ICreateEvent } from '../../util/appInterface';
 import toast from 'react-hot-toast';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation, } from '@apollo/client';
+import cookie from 'js-cookie'
 import { CREATE_EVENT } from '../../apollo/queries/event';
+import { TOKEN_NAME } from '../../util/constants';
 
 
 
 function CreateEvent() {
   const [inputs, setInputs] = useState<Partial<ICreateEvent>>();
   const [createEvent] = useMutation(CREATE_EVENT)
+  const router = useRouter()
 
   const handleChange = async (event: { target: { name: any; value: any } }) => {
     const name = event.target.name;
@@ -26,6 +30,16 @@ function CreateEvent() {
       toast.error('Fill in the fields', {
         id: toastId,
       });
+      
+      return
+    }
+
+    const token = cookie.get(TOKEN_NAME)
+    if (!token) {
+      toast.error('Please login', {
+        id: toastId,
+      });
+      router.push('/auth')
       return
     }
 

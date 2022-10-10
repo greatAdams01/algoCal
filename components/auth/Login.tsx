@@ -5,6 +5,7 @@ import { gql, useMutation, useQuery } from '@apollo/client';
 import { EyeIcon, EyeOffIcon,  } from '@heroicons/react/outline'
 import cookie from "js-cookie";
 import toast from 'react-hot-toast';
+import { GoogleLogin } from 'react-google-login';
 import { isEmail } from '../../util/isEmail';
 import { LOGIN_USER } from '../../apollo/queries/auth';
 import { TOKEN_NAME } from '../../util/constants';
@@ -81,6 +82,12 @@ function Login() {
     }
   }
 
+  const ClientID = process.env.NEXT_PUBLIC_GOOGLE_CLIENTID
+
+  const responseGoogle = (response: any) => {
+    console.log(response);
+  }
+
   return (
     <div className='px-5 py-20 text-[#4059AD] lg:w-1/2 m-auto '>
       <div className='text-center'>
@@ -141,7 +148,19 @@ function Login() {
         <div className='text-center pt-8'>
           <p>Continue with</p>
           <div className='flex w-20 space-x-4 m-auto py-2'>
-            <img src="/img/Google.png" className='w-[32px] h-[32px]' alt="" />
+          <GoogleLogin
+            clientId={ClientID || ''}
+            render={renderProps => (
+              <button onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                <img src="/img/Google.png" className='w-[32px] h-[32px]' alt="" />
+              </button>
+            )}
+            buttonText="Login"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={'single_host_origin'}
+          />
+            
             <img src="/img/Twitter.png" className='w-[35px] h-[35px]' alt="" />
           </div>
         </div>

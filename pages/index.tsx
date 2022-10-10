@@ -1,10 +1,13 @@
-import type { ReactElement } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import EventList from '../components/event/EventList'
 import BaseLayout from '../layout/BaseLayout'
+import { IEvent } from '../util/appInterface';
+import { GET_EVENTS } from '../apollo/queries/event';
 
-const Home = () => {
+// const HomePage: NextPage<{ campaigns: ICampaign[] }> = ({ campaigns, }: { campaigns: ICampaign[] }): JSX.Element => {
+
+const Home: NextPage<{ events: IEvent[] }> = ({  }: { events: IEvent[] }): JSX.Element => {
   return (
     <BaseLayout>
       <div>

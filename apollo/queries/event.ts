@@ -20,3 +20,43 @@ export const CREATE_EVENT = gql`
   }
 }
 `
+
+export const GET_EVENTS = gql` 
+query {
+  events {
+    _id
+    description
+    date
+    category
+    followers
+    link
+    image
+    organizer
+    reactions
+    time
+    title
+    updatedAt
+    venue
+  }
+}
+`
+
+export const GET_CREATOR_EVENTS = gql` 
+query {
+  events {
+    _id
+    description
+    date
+    category
+    followers
+    link
+    image
+    organizer
+    reactions
+    time
+    title
+    updatedAt
+    venue
+  }
+}
+`

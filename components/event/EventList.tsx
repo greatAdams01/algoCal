@@ -1,96 +1,64 @@
 import { useState } from 'react'
 import { useQuery, gql } from '@apollo/client'; 
+import moment from 'moment';
 import { ShareIcon, BookmarkIcon } from "@heroicons/react/outline"
+import { IEvent } from '../../util/appInterface';
+import { GET_EVENTS } from '../../apollo/queries/event';
 
 const EventList = () => {
+  const [events, setEvents] = useState<IEvent[]>()
   const [isAll, setIsAll] = useState(true)
-  const [isForYou, setIsForYou] = useState(false)
-  const [isFree, setIsFree] = useState(false)
   const [isToday, setIsToday] = useState(false)
   const [isWeekend, setIsWeekend] = useState(false)
   const [isMonth, setIsMonth] = useState(false)
 
-  const GET_EVENTS = gql` 
-    query {
-      events {
-        description
-        date
-        category
-        followers
-        link
-        host
-        organizer
-        reactions
-        time
-        title
-        updatedAt
-        venue
-      }
-}
-  `
-const { loading, error, data } = useQuery(GET_EVENTS);
+const { loading, data, error } = useQuery(GET_EVENTS, {
+  onCompleted: ({ events }) => {
+    setEvents(events)
+  }
+});
 
   const switchEvents = (e: any) => {
-    console.log(data)
-    if(e?.id === "all") {
-      setIsAll(true)
-      setIsForYou(false)
-      setIsFree(false)
-      setIsMonth(false)
-      setIsToday(false)
-      setIsWeekend(false)
-      return
+    const { events: IEvent } = data
+    const localState = events
+    const dateNow = moment(new Date()).format("MMM Do YY")
+    switch (e?.id) {
+      case 'all':
+        setEvents(data.events)
+        setIsAll(true)
+        setIsMonth(false)
+        setIsToday(false)
+        setIsWeekend(false)
+        break;
+
+      case 'today':
+        const result = events?.filter(item => moment(item.date).format("MMM Do YY") === dateNow)
+        setEvents(result)
+        setIsAll(false)
+        setIsMonth(false)
+        setIsToday(true)
+        setIsWeekend(false)
+        break;
+      
+      case 'weekend':
+        setIsAll(false)
+        setIsMonth(false)
+        setIsToday(false)
+        setIsWeekend(true)
+        break;
+
+      case 'month':
+        setIsAll(false)
+        setIsMonth(true)
+        setIsToday(false)
+        setIsWeekend(false)
+        break;
+    
+      default:
+        console.log(`Sorry, we are out of ${e.id}.`)
+        break;
     }
 
-    if(e?.id === "for-you") {
-      setIsAll(false)
-      setIsForYou(true)
-      setIsFree(false)
-      setIsMonth(false)
-      setIsToday(false)
-      setIsWeekend(false)
-      return
-    }
-
-    if(e?.id === "free") {
-      setIsAll(false)
-      setIsForYou(false)
-      setIsFree(true)
-      setIsMonth(false)
-      setIsToday(false)
-      setIsWeekend(false)
-      return
-    }
-
-    if(e?.id === "today") {
-      setIsAll(false)
-      setIsForYou(false)
-      setIsFree(false)
-      setIsMonth(false)
-      setIsToday(true)
-      setIsWeekend(false)
-      return
-    }
-
-    if(e?.id === "weekend") {
-      setIsAll(false)
-      setIsForYou(false)
-      setIsFree(false)
-      setIsMonth(false)
-      setIsToday(false)
-      setIsWeekend(true)
-      return
-    }
-
-    if(e?.id === "month") {
-      setIsAll(false)
-      setIsForYou(false)
-      setIsFree(false)
-      setIsMonth(true)
-      setIsToday(false)
-      setIsWeekend(false)
-      return
-    }
 
   }
 
@@ -110,20 +78,6 @@ const { loading, error, data } = useQuery(GET_EVENTS);
               onClick={(e) => switchEvents(e.target)}
             >
               All
-            </li>
-            <li 
-              id='for-you'
-              className={!isForYou ? 'event-nav' : 'event-nav border-b-2 border-[#4059AD] font-semibold'}
-              onClick={(e) => switchEvents(e.target)}
-            >
-              For You
-            </li>
-            <li 
-              id='free'
-              className={!isFree ? 'event-nav' : 'event-nav border-b-2 border-[#4059AD] font-semibold'}
-              onClick={(e) => switchEvents(e.target)}
-            >
-              Free
             </li>
             <li 
               id='today'
@@ -151,36 +105,41 @@ const { loading, error, data } = useQuery(GET_EVENTS);
 
         {/* Events */}
 
-        <div className="pt-5">
+        <div className="pt-5 lg:grid grid-cols-2 gap-2 ">
           {/* eventITem */}
-          <div className='border p-4 rounded-xl'>
-            {/* Header */}
-            <div className='flex w-full justify-between pb-2'>
-              <h3 className='text-2xl font-semibold'>Karla’s Cafe</h3>
-              <h3>Mon, 22nd Aug 2022</h3>
-            </div>
-            {/* Description */}
-            <div>
-              <h3 className='py-1 text-xl font-semibold'>Description:</h3>
-              <p>
-              Buenos dias!  Yo soy Karla. Yo trabajo en una oficina de technologico . Me encanta  aprender la matematica en el mundo. Yo soy simpatica, bonita y muy guapa. Yo hablo ingles, espanol, italiano, japones y potugues. me interesa en crypto y tengo un oficina de crypto.
-              </p>
-            </div>
-
-            {/* Calander */}
-
-            <div className='flex justify-between pt-4'>
-              <div className='flex space-x-2 pt-4'>
-                <img className='img-rounded' src="/img/03-93.jpg" alt="" />
-                <p className='font-semibold pt-2'>Josh_Id, GoldPilot and 200 others</p>
-              </div>
-              <div className='flex space-x-2 pt-4'>
-                <ShareIcon className='w-6' />
-                <BookmarkIcon className='w-6' />
-              </div>
-            </div>
-
-          </div>
+          {events?.map((item: IEvent, i: any) => (
+             <div key={i} className='border p-4 rounded-xl mt-5'>
+              {/* Image */}
+              <div className='p-20' style={{ backgroundPosition: 'center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundImage: `url(${(item.image)})`}}  />
+             {/* Header */}
+             <div className='flex w-full justify-between py-2'>
+               <h3 className='text-2xl font-semibold'>{item.title}</h3>
+               <h3>{moment(item.date).format("MMM Do YY")}</h3>
+             </div>
+             {/* Description */}
+             <div>
+               <h3 className='py-1 text-xl font-semibold'>Description:</h3>
+               <p>
+              {item.description}
+               </p>
+             </div>
+ 
+             {/* Calander */}
+ 
+             <div className='flex justify-between pt-4'>
+               <div className='flex space-x-2 pt-4'>
+                 <img className='img-rounded' src="/img/03-93.jpg" alt="" />
+                 <p className='font-semibold pt-2'>Josh_Id, GoldPilot and 200 others</p>
+               </div>
+               <div className='flex space-x-2 pt-4'>
+                 <ShareIcon className='w-6' />
+                 <BookmarkIcon className='w-6' />
+               </div>
+             </div>
+ 
+           </div>
+          ))
+          }
         </div>
 
       </section>
@@ -189,3 +148,4 @@ const { loading, error, data } = useQuery(GET_EVENTS);
 }
 
 export default EventList
+
