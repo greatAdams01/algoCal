@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import EventList from '../components/event/EventList'
 import BaseLayout from '../layout/BaseLayout'
 import { IEvent } from '../util/appInterface';
@@ -8,6 +9,7 @@ import { GET_EVENTS } from '../apollo/queries/event';
 // const HomePage: NextPage<{ campaigns: ICampaign[] }> = ({ campaigns, }: { campaigns: ICampaign[] }): JSX.Element => {
 
 const Home: NextPage<{ events: IEvent[] }> = ({  }: { events: IEvent[] }): JSX.Element => {
+  const router = useRouter()
   return (
     <BaseLayout>
       <div>
@@ -26,7 +28,7 @@ const Home: NextPage<{ events: IEvent[] }> = ({  }: { events: IEvent[] }): JSX.E
                 Transform your events and schedules with the best from Algorand’s ecosystem...
               </p>
               <div className='py-8'>
-                <button className='px-10 py-3 bg-[#4059ADCC] rounded-xl text-white'>
+                <button onClick={() => router.push('/event/create')} className='px-10 py-3 bg-[#4059ADCC] rounded-xl text-white'>
                   Get Started 
                 </button>
               </div>

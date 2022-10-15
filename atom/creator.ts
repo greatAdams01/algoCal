@@ -4,5 +4,5 @@ import { UserCreator } from "../util/appInterface";
 
 export const UserAtom = atom({
 	key: "Creator-User-Atom",
-	default: null as unknown as Partial<UserCreator>,
+	default:'',
 });

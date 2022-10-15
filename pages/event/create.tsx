@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router'
 import Head from 'next/head'
 import BaseLayout from '../../layout/BaseLayout'
@@ -9,13 +9,22 @@ import cookie from 'js-cookie'
 import { CREATE_EVENT } from '../../apollo/queries/event';
 import { TOKEN_NAME } from '../../util/constants';
 
-
+interface IFile {
+	file: string;
+	type: string;
+	name: string;
+}
 
 function CreateEvent() {
   const [inputs, setInputs] = useState<Partial<ICreateEvent>>();
   const [createEvent] = useMutation(CREATE_EVENT)
   const router = useRouter()
-
+  const uploadRef = useRef<HTMLInputElement>(null);
+  const [filePreview, setFilePreview] = useState<IFile>({
+		type: "",
+		file: "",
+		name: "",
+	});
   const handleChange = async (event: { target: { name: any; value: any } }) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -63,6 +72,26 @@ function CreateEvent() {
     }
 
   }
+
+  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const files = e.target.files;
+		const reader = new FileReader();
+
+		if (files && files.length > 0) {
+			reader.readAsDataURL(files[0]);
+			reader.onloadend = () => {
+				if (reader.result) {
+					let type = files[0].name.substr(files[0].name.length - 3)
+					// console.log(type)
+					setFilePreview({
+						type: type === "mp4" ? "video" : "image",
+						file: reader.result as string,
+						name: files[0].name,
+					});
+				}
+			};
+		}
+	};
 
 
   return (
@@ -179,6 +208,23 @@ function CreateEvent() {
                 value={inputs?.description || ""}
                 onChange={handleChange}
               ></textarea>
+          </div>
+          <div className='event-group'>
+          <label className='relative bg-white p-1 left-[61px] top-[10px]' htmlFor="des">Upload Image</label> <br />
+            <input
+              type="file"
+              ref={uploadRef}
+              className='event-input h-[100px] hidden'
+              accept='image/*'
+              onChange={handleImage}
+            />
+            <button
+              className='event-input h-[100px]'
+              onClick={() => uploadRef.current?.click()}
+							type="button"
+            >
+              {filePreview?.name || "Upload Image"}
+            </button>
           </div>
 
           <div className='event-group'>

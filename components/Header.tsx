@@ -3,10 +3,10 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { SearchIcon } from "@heroicons/react/outline";
 import IsLogged from './auth/IsLogged';
+import { loadStdlib } from '@reach-sh/stdlib';
 
 function Header() {
   const router = useRouter()
-  
 
   return (
     <header className='hidden lg:block'>

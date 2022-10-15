@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from "next/router";
-import { gql, useMutation, useQuery } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import { EyeIcon, EyeOffIcon,  } from '@heroicons/react/outline'
 import cookie from "js-cookie";
 import toast from 'react-hot-toast';
 import { GoogleLogin } from 'react-google-login';
 import { isEmail } from '../../util/isEmail';
-import { LOGIN_USER } from '../../apollo/queries/auth';
+import { JOIN_CREATOR } from '../../apollo/queries/auth';
 import { TOKEN_NAME } from '../../util/constants';
 
 interface LoginInput {
@@ -24,7 +24,7 @@ function Login() {
   });
   const [remeberValue, setRemeberValue] = useState(false)
   const router = useRouter();
-  const [ loginUser]= useMutation(LOGIN_USER)
+  const [ loginUser]= useMutation(JOIN_CREATOR)
 
   const handleChange = async (event: { target: { name: any; value: any } }) => {
     const name = event.target.name;
