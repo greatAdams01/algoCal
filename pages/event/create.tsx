@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router'
 import Head from 'next/head'
+import { useRecoilState } from 'recoil'
 import BaseLayout from '../../layout/BaseLayout'
 import { ICreateEvent } from '../../util/appInterface';
 import toast from 'react-hot-toast';
 import { useMutation, } from '@apollo/client';
+import { UserAtom } from '../../atom/creator';
 import cookie from 'js-cookie'
 import { CREATE_EVENT } from '../../apollo/queries/event';
-import { TOKEN_NAME } from '../../util/constants';
+import { shortenAddress, TOKEN_NAME } from '../../util/constants';
 
 interface IFile {
 	file: string;
@@ -18,6 +20,7 @@ interface IFile {
 function CreateEvent() {
   const [inputs, setInputs] = useState<Partial<ICreateEvent>>();
   const [createEvent] = useMutation(CREATE_EVENT)
+  const [user, setUser] = useRecoilState(UserAtom)
   const router = useRouter()
   const uploadRef = useRef<HTMLInputElement>(null);
   const [filePreview, setFilePreview] = useState<IFile>({
@@ -33,9 +36,9 @@ function CreateEvent() {
 
   const createEventFun = (e: any) => {
     e.preventDefault()
-    console.log(inputs)
+    console.log(filePreview)
     const toastId = toast.loading('Loading...');
-    if (!inputs?.category || !inputs?.time || !inputs.title || !inputs.venue || !inputs.organizer || !inputs.description || !inputs.link) {
+    if (!inputs?.category || !inputs?.time || !inputs.title || !inputs.venue || !inputs.description || !inputs.link || !filePreview.name) {
       toast.error('Fill in the fields', {
         id: toastId,
       });
@@ -45,16 +48,15 @@ function CreateEvent() {
 
     const token = cookie.get(TOKEN_NAME)
     if (!token) {
-      toast.error('Please login', {
+      toast.error('Please connect wallet', {
         id: toastId,
       });
-      router.push('/auth')
       return
     }
 
     try {
       createEvent({
-        variables: { ...inputs },
+        variables: { ...inputs, organizer: user, imageName: filePreview.name, imageType: filePreview.type, imageFile: filePreview.file  },
         onCompleted: ({ createEvent }) => {
           console.log(createEvent)
           toast.success( `${createEvent?.title} created successful`, {
@@ -62,13 +64,14 @@ function CreateEvent() {
           })
         },
         onError: error => {
+          console.log(error)
           toast.error(error.message, {
             id: toastId,
           });
         }
       })
     } catch (error) {
-      
+      console.log(error)
     }
 
   }
@@ -127,10 +130,9 @@ function CreateEvent() {
                 id='organizer'
                 name='organizer'
                 className='event-input'
+                disabled
                 type="text"
-                placeholder='Eg: Cryptosmart.algo'
-                value={inputs?.organizer || ""}
-                onChange={handleChange}
+                placeholder={ shortenAddress(user) }
               />
           </div>
 

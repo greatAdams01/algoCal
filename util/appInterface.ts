@@ -2,7 +2,6 @@
 export interface ICreateEvent {
   title: string;
   date: string;
-  organizer: string;
   time: string;
   description: string;
   venue: string;

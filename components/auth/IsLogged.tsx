@@ -7,7 +7,7 @@ import { useMutation } from '@apollo/client';
 import { JOIN_CREATOR } from '../../apollo/queries/auth';
 import { useRecoilState } from 'recoil'
 import { UserAtom } from '../../atom/creator'
-import { TOKEN_NAME } from '../../util/constants'
+import { shortenAddress, TOKEN_NAME } from '../../util/constants'
 import { IAssetData } from '../../helpers/types';
 import { ChainType, getChainId } from '../../helpers/api';
 import toast from 'react-hot-toast';
@@ -118,7 +118,7 @@ function IsLogged() {
     }
   }
 
-  const shortenAddress = (address: string) => `${address.slice(0, 5)}....${address.slice(address.length - 4)}`
+
 
   // useEffect(() => {
   //   setUser(connectorItem?.accounts[0])

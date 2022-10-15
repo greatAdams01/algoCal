@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const token = cookie.get(TOKEN_NAME)
   const client = new ApolloClient({
 
-    uri: 'https://algocal-mtvme.ondigitalocean.app/graphql',
+    uri: 'http://localhost:8000/graphql',
   
     cache: new InMemoryCache(),
     headers: {

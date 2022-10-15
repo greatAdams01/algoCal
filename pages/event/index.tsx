@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { PlusIcon } from "@heroicons/react/outline"
 import { useRecoilState } from 'recoil'
 import MyEventList from '../../components/event/MyEventList'
@@ -9,6 +10,7 @@ import { UserAtom } from '../../atom/creator'
 
 
 const EventHome = () => {
+  const router = useRouter()
   const [user, setUser] = useRecoilState(UserAtom)
   const { data, error } = useQuery(USER, {
     onCompleted: ({ creator }) => {
@@ -24,7 +26,7 @@ const EventHome = () => {
         </Head>
 
         <section className='container'>
-          <div className='bg-[#4059AD]  w-[54px] p-[10px] rounded-xl m-auto cursor-pointer'>
+          <div onClick={() => router.push('/event/create')} className='bg-[#4059AD]  w-[54px] p-[10px] rounded-xl m-auto cursor-pointer'>
             <PlusIcon className='w-8 text-white' />
           </div>
 
