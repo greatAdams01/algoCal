@@ -22,8 +22,7 @@ export const USER = gql`
       creator {
         _id
         about
-        email
-        name
+        address
         website
       }
     }

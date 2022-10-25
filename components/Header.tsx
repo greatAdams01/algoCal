@@ -14,7 +14,7 @@ function Header() {
         <div className='flex justify-between'>
           {/* Logo and search bar */}
           <div className='flex space-x-5'>
-            <img className='w-[120px]' src="/img/logo.png" alt="" />
+            <img onClick={() => router.push('/')} className='w-[120px] cursor-pointer' src="/img/logo.png" alt="" />
             <div className='pt-2 flex'>
             <input className='bg-[#B7D5D44D] w-[250px] outline-none rounded-xl px-6' type="text" />
             <SearchIcon className='text-[#4059AD] w-4 relative left-[-30px]' />
@@ -24,7 +24,7 @@ function Header() {
           <div>
             <ul className='flex space-x-8 pt-3 text-[#4059AD] font-Pop text-[16px]'>
               <li>
-                <Link href="/">
+                <Link href="/event">
                   <a>Organize</a>
                 </Link>
               </li>

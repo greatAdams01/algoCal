@@ -15,9 +15,9 @@ function MobileHeader() {
           <div className='flex justify-between'>
             {/* Logo and search bar */}
             <div className='flex space-x-5'>
-              <img className='w-[120px]' src="/img/logo.png" alt="" />
+              <img onClick={() => router.push('/')} className='w-[90px] cursor-pointer' src="/img/logo.png" alt="" />
               <div className='pt-1 flex'>
-              <input className='bg-[#B7D5D44D] w-[185px] outline-none rounded-xl px-6' type="text" />
+              <input className='bg-[#B7D5D44D] w-[165px] outline-none rounded-xl px-6' type="text" />
               <SearchIcon className='text-[#4059AD] w-4 relative left-[-30px]' />
               </div>
             </div>
@@ -32,7 +32,7 @@ function MobileHeader() {
         <div className='fixed h-[100vh] z-10 bg-white w-full px-10 py-2 transition-all'>
         <ul className='pt-3 text-[#4059AD] font-Pop text-[16px]'>
           <li onClick={() => setOpen(false)} className='mobLink'>
-            <Link href="/">
+            <Link href="/event">
               <a>Organize</a>
             </Link>
           </li>

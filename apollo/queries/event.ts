@@ -45,14 +45,15 @@ query {
 
 export const GET_CREATOR_EVENTS = gql` 
 query {
-  events {
+  creatorEvents {
     _id
-    description
-    date
     category
+    createdAt
+    date
+    description
     followers
-    link
     image
+    link
     organizer
     reactions
     time
