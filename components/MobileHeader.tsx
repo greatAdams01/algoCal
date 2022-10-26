@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { SearchIcon, MenuAlt1Icon, XIcon } from "@heroicons/react/outline";
 import { useRouter } from 'next/router';
-import IsLogged from './auth/IsLogged'
+import IsLogged from './auth/IsloggedM'
 
 
 function MobileHeader() {
