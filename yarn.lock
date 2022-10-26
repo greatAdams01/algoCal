@@ -909,6 +909,13 @@
   dependencies:
     "@randlabs/communication-bridge" "1.0.1"
 
+"@randlabs/myalgo-connect@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@randlabs/myalgo-connect/-/myalgo-connect-1.4.0.tgz#1446d527978b7b5666562a4e921a51262a29cddd"
+  integrity sha512-sAeYbnx4HOLVXNaTFpoI2K0BmdC4rqzKqb4wuUbk51ay1oQ0jnfOgwS1Ms8uZchoaVNLVlMPK9nso1J/CAOFnw==
+  dependencies:
+    "@randlabs/communication-bridge" "1.0.1"
+
 "@reach-sh/stdlib@^0.1.12-rc.3":
   version "0.1.12-rc.3"
   resolved "https://registry.yarnpkg.com/@reach-sh/stdlib/-/stdlib-0.1.12-rc.3.tgz#651809f46b1299b58f52565c03ed75b39e804ceb"

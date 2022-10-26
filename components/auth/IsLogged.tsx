@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import WalletConnect from "@walletconnect/client";
 import QRCodeModal from "algorand-walletconnect-qrcode-modal";
 import cookie from 'js-cookie'
+import MyAlgoConnect from '@randlabs/myalgo-connect';
 import { useMutation } from '@apollo/client';
 import { JOIN_CREATOR } from '../../apollo/queries/auth';
 import { useRecoilState } from 'recoil'
@@ -11,6 +12,8 @@ import { shortenAddress, TOKEN_NAME } from '../../util/constants'
 import { IAssetData } from '../../helpers/types';
 import { ChainType, getChainId } from '../../helpers/api';
 import toast from 'react-hot-toast';
+// import '../../styles/Home.module.css'
+
 
 interface IResult {
   method: string;
@@ -118,7 +121,22 @@ function IsLogged() {
     }
   }
 
+  const myAlgoWallet = async () => {
+    const myAlgoConnect = new MyAlgoConnect({ disableLedgerNano: false });
+    const settings = {
+      shouldSelectOneAccount: false,
+      openManager: false
+    };
+    
+    const accounts = await myAlgoConnect.connect(settings);
+    console.log(accounts)
+    const address = accounts[0].address
+    joinUser(address)
+  }
 
+  // const algoSigner = async () => {
+  //   window.AlgoSigner.accounts({ ledger: 'TestNet' });
+  // }
 
   // useEffect(() => {
   //   setUser(connectorItem?.accounts[0])
@@ -130,7 +148,16 @@ function IsLogged() {
         <>
           {/* <button onClick={() => router.push('/auth?mode=signup')} className='authBtn text-white bg-[#4059AD]'>Sign Up</button>
           <button onClick={() => router.push('/auth?mode=login')} className='authBtn text-[#4059AD]'>Login</button> */}
-          <button onClick={walletConnectInit} className='authBtn text-[#4059AD] border border-[#4059AD]'>Connect Wallet</button>
+          {/* <button className='authBtn text-[#4059AD] border border-[#4059AD]'>Connect Wallet</button> */}
+          <div className="sec-center"> 	
+            <input className="dropdown" type="checkbox" id="dropdown" name="dropdown"/>
+            <label className="for-dropdown" htmlFor="dropdown">Connect Wallet <i className="uil uil-arrow-down"></i></label>
+            <div className="section-dropdown"> 
+              <a className='connect-item' onClick={myAlgoWallet} href="#">My Algo Wallet <i className="uil uil-arrow-right"></i></a>
+              <a className='connect-item' onClick={walletConnectInit}  href="#">WalletConnect <i className="uil uil-arrow-right"></i></a>
+              <a className='connect-item' href="#">Install AlgoSigner <i className="uil uil-arrow-right"></i></a>
+            </div>
+          </div>
         </> :
 
         <div>

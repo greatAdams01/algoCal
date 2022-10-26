@@ -62,6 +62,7 @@ function CreateEvent() {
           toast.success( `${createEvent?.title} created successful`, {
             id: toastId,
           })
+          router.push('/event')
         },
         onError: error => {
           console.log(error)

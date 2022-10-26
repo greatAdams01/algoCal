@@ -11,7 +11,7 @@ import { UserAtom } from '../../atom/creator'
 import { useState } from 'react'
 import { IEvent } from '../../util/appInterface'
 import { GET_CREATOR_EVENTS } from '../../apollo/queries/event'
-import { TwitterIcon } from 'react-share';
+import { TwitterIcon, TwitterShareButton } from 'react-share';
 
 
 const EventHome = () => {
@@ -123,22 +123,23 @@ const EventHome = () => {
  
              <div className='flex justify-between pt-4'>
                <div className='flex space-x-2 pt-4'>
-               <img className='w-[24px]' src="/img/dated.png" alt="" />
+               <img className='w-[24px] h-[24px]' src="/img/dated.png" alt="" />
                  {/* 
                  <p className='font-semibold pt-2'>Josh_Id, GoldPilot and 200 others</p> */}
                </div>
                <div className='flex space-x-2 pt-4'>
-                 <ShareIcon className='w-6' />
-                 <TwitterIcon size={32} round={true}>
-                  {/* <TwitterShareButton
-                    about='l,'
-                    url=' kmkm'
-                    via='dfd'
-                    title='dfdf'
-                    hashtags={['dfdf', 'fdfsfsd']}
-                    related={['dfdf', 'fdfsfsd']}
-                   /> */}
-                 </TwitterIcon>
+                 {/* <ShareIcon className='w-6' /> */}
+                
+                  <TwitterShareButton
+                    about={item.description}
+                    url={`algo-cal.vercel.app/`}
+                    via={'cryptosmartnow'}
+                    title={`Here's another event for the Algorand community @AlgoFoundation.  ${item.title} event coming soon, check it out`}
+                    hashtags={['Algorand', 'Web3']}
+                    related={['Algorand', 'Web3']}
+                   >
+                     <TwitterIcon size={32} round={true} />
+                   </TwitterShareButton>
                  <BookmarkIcon className='w-6' />
                </div>
              </div>
