@@ -107,7 +107,7 @@ function IsLogged() {
           })
           cookie.set(TOKEN_NAME, join?.token, { expires: 40, sameSite: 'None', secure: true })
           cookie.set(USER_ADDRES, address, { expires: 40, sameSite: 'None', secure: true })
-          nftName('SWHZAHIVQKYBY4ONSLEGMQAZE6LNTOREKIONNLLBLYAITYSPLUEXBLI6ZU')
+          nftName(address)
           router.push('/event')
         },
         onError(error) {
