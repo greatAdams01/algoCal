@@ -23,11 +23,6 @@ const EventHome = () => {
   const [isFavorites, setIsFavorites] = useState(false)
   const [isUpcoming, setIsUpcoming] = useState(false)
   const [isMonth, setIsMonth] = useState(false)
-  const { data, error } = useQuery(USER, {
-    onCompleted: ({ creator }) => {
-      setUser(creator.address)
-    }
-  })
 
   const { loading } = useQuery(GET_CREATOR_EVENTS, {
     onCompleted: ({ creatorEvents }) => {

@@ -8,7 +8,7 @@ import { useMutation } from '@apollo/client';
 import { JOIN_CREATOR } from '../../apollo/queries/auth';
 import { useRecoilState } from 'recoil'
 import { UserAtom } from '../../atom/creator'
-import { shortenAddress, TOKEN_NAME } from '../../util/constants'
+import { shortenAddress, TOKEN_NAME, USER_ADDRES } from '../../util/constants'
 import { IAssetData } from '../../helpers/types';
 import { ChainType, getChainId } from '../../helpers/api';
 import toast from 'react-hot-toast';
@@ -62,12 +62,13 @@ function IsLogged() {
   const [show, setShow] = useState(false)
   const [loadingConnect, setLoadingConnect] = useState(false)
   const [user, setUser] = useRecoilState(UserAtom)
-  const [connectState, setConnectState] = useState<IAppState>()
+  const [userNftName, setUserNftName] = useState<string>()
   const [ joinCreator ] = useMutation(JOIN_CREATOR)
   const router = useRouter()
 
   const logout = () => {
     cookie.remove(TOKEN_NAME)
+    cookie.remove(USER_ADDRES)
     setUser('')
     router.push('/')
   }
@@ -93,10 +94,10 @@ function IsLogged() {
     }
   }
 
-  const joinUser = (address: string): void => {
-    console.log(address)
+  const joinUser = async (address: string): Promise<void> => {
     setUser(address)
     const toastId = toast.loading('Loading...');
+    
     try {
       joinCreator({
         variables: { address: address },
@@ -104,8 +105,9 @@ function IsLogged() {
           toast.success('Login successful', {
             id: toastId,
           })
-          console.log(join)
           cookie.set(TOKEN_NAME, join?.token, { expires: 40, sameSite: 'None', secure: true })
+          cookie.set(USER_ADDRES, address, { expires: 40, sameSite: 'None', secure: true })
+          nftName('SWHZAHIVQKYBY4ONSLEGMQAZE6LNTOREKIONNLLBLYAITYSPLUEXBLI6ZU')
           router.push('/event')
         },
         onError(error) {
@@ -134,13 +136,32 @@ function IsLogged() {
     joinUser(address)
   }
 
-  // const algoSigner = async () => {
-  //   window.AlgoSigner.accounts({ ledger: 'TestNet' });
-  // }
 
-  // useEffect(() => {
-  //   setUser(connectorItem?.accounts[0])
-  // }, [loadingConnect]);
+  const nftName =  (address:string) => {
+    const nftName = fetch(`https://api.nf.domains/nfd/address?address=${address}`, {
+      method: 'GET', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const name = data[0].name
+        setUser(name)
+        cookie.set(USER_ADDRES, name, { expires: 40, sameSite: 'None', secure: true })
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }
+
+
+  useEffect(() => {
+    const address = cookie.get(USER_ADDRES)
+    if(address) {
+      setUser(`${address}`)
+    }
+  }, [setUser])
 
   return (
     <>
@@ -163,7 +184,8 @@ function IsLogged() {
         </> :
 
         <div>
-          <button onClick={() => setShow(!show ? true : false)} className='authBtn text-[#4059AD] border border-[#4059AD]'>{ shortenAddress(user) }</button>
+          <button onClick={() => setShow(!show ? true : false)} className='authBtn text-[#4059AD] border border-[#4059AD]'>
+          { user.length < 50 ? user : shortenAddress(user) }</button>
           <div className={show ? 'block absolute text-center border w-[119px]' : 'hidden text-center'}>
             <button onClick={() => router.push('/event')} className=' boder-[#4059AD] text-[#4059AD]'>Profile</button> <br />
             <button onClick={logout} className='border-t boder-[#4059AD] text-[#4059AD]'>Log out</button>
