@@ -111,7 +111,7 @@ function CreateEvent() {
 
 
         <form>
-          <div className='w-3/4 m-auto'>
+          <div className='w-3/2 lg:w-3/4 m-auto'>
           <div className='event-group'>
             <label className='relative bg-white p-1 left-[61px] top-[10px]' htmlFor="title">Name</label> <br />
               <input
