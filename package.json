@@ -16,6 +16,7 @@
     "@randlabs/myalgo-connect": "^1.4.0",
     "@reach-sh/stdlib": "^0.1.12-rc.3",
     "@walletconnect/client": "^1.8.0",
+    "add-to-calendar-button": "^1.18.5",
     "algorand-walletconnect-qrcode-modal": "^1.8.0",
     "algosdk": "^1.22.0",
     "apollo": "^2.34.0",

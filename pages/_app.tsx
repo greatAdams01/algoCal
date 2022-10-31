@@ -9,6 +9,7 @@ import {
   RecoilRoot,
 } from 'recoil';
 import { TOKEN_NAME } from '../util/constants';
+import 'add-to-calendar-button/assets/css/atcb.css';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
