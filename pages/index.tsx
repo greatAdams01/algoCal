@@ -29,6 +29,7 @@ const { loading, data, error } = useQuery(GET_EVENTS, {
   const switchEvents = (e: any) => {
     const { events: IEvent } = data
     const localState = events
+    let result
     const dateNow = moment(new Date()).format("MMM Do YY")
     switch (e?.id) {
       case 'all':
@@ -40,7 +41,7 @@ const { loading, data, error } = useQuery(GET_EVENTS, {
         break;
 
       case 'today':
-        const result = events?.filter(item => moment(item.date).format("MMM Do YY") === dateNow)
+        result = events?.filter(item => moment(item.date).format("MMM Do YY") === dateNow)
         setEvents(result)
         setIsAll(false)
         setIsMonth(false)
@@ -56,6 +57,9 @@ const { loading, data, error } = useQuery(GET_EVENTS, {
         break;
 
       case 'month':
+        const currentMonth = new Date().getMonth()
+        result = events?.filter(item => new Date(item.date).getMonth() === currentMonth)
+        setEvents(result)
         setIsAll(false)
         setIsMonth(true)
         setIsToday(false)
@@ -120,13 +124,13 @@ const { loading, data, error } = useQuery(GET_EVENTS, {
             >
               Today
             </li>
-            <li 
+            {/* <li 
               id='weekend'
               className={!isWeekend ? 'event-nav' : 'event-nav border-b-2 border-[#4059AD] font-semibold'}
               onClick={(e) => switchEvents(e.target)}
             >
               This Weekend
-            </li>
+            </li> */}
             <li 
               id='month'
               className={!isMonth ? 'event-nav' : 'event-nav border-b-2 border-[#4059AD] font-semibold'}

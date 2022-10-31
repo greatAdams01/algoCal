@@ -22,16 +22,18 @@ const EventHome = () => {
   const [isUpcoming, setIsUpcoming] = useState(false)
   const [isMonth, setIsMonth] = useState(false)
 
-  const { loading } = useQuery(GET_CREATOR_EVENTS, {
+  const { loading, data, error } = useQuery(GET_CREATOR_EVENTS, {
     onCompleted: ({ creatorEvents }) => {
-      console.log(creatorEvents)
       setEvents(creatorEvents)
     }
   })
 
   const switchEvents = (e: any) => {
+    let result
     // console.log(e?.id)
     if(e?.id === "all") {
+      
+      setEvents(data.creatorEvents)
       setIsAll(true)
       setIsRecently(false)
       setIsFavorites(false)
@@ -41,6 +43,9 @@ const EventHome = () => {
     }
 
     if(e?.id === "month") {
+      const currentMonth = new Date().getMonth()
+      result = events?.filter(item => new Date(item.date).getMonth() === currentMonth)
+      setEvents(result)
       setIsAll(false)
       setIsRecently(false)
       setIsFavorites(false)
